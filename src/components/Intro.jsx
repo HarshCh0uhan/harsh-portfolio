@@ -2,26 +2,27 @@ import React from 'react'
 import harshImg from '../assets/harsh.png'
 import { Link } from 'react-router-dom'
 import {useTypewriter} from '../hooks/useTypewriter'
-import { introText } from '../constants/constants'
+import { resumeURL, linkedinURL, githubURL, gfgURL, introText } from '../constants/constants'
+import TerminalInput from './TerminalInput'
 
 const Intro = () => {
   const whoami = useTypewriter("whoami", 60, true);
-  const intro = useTypewriter(introText, 18, whoami.done);
+  const intro = useTypewriter(introText, 10, whoami.done);
   const stats = useTypewriter("stats", 60, intro.done);
 
   return (
     <div>
-      <div className="flex items-start gap-10">
+      <div className="flex items-center">
     
         {/* Image */}
         <img
           src={harshImg}
           alt="Harsh Chouhan"
-          className="size-[40%]"
+          className="size-[30%]"
         />
 
         {/* Content */}
-        <div className="flex flex-col gap-4 max-w-xl text-[95%]">
+        <div className="flex flex-col gap-3 text-[95%]">
 
           {/* whoami */}
           <h1 className="font-bold text-green-400">
@@ -35,9 +36,9 @@ const Intro = () => {
           </p>)}
 
           {/* HR Links */}
-          {intro.done &&(<div className="flex gap-4 text-sm">
+          {intro.done &&(<div className="flex justify-evenly text-sm">
             <a
-              href="/Harsh_Chouhan_Resume.pdf"
+              href={resumeURL}
               target="_blank"
               rel="noreferrer"
               className="text-gray-300 hover:text-white underline underline-offset-4"
@@ -45,7 +46,7 @@ const Intro = () => {
               Resume
             </a>
             <a
-              href="https://www.linkedin.com/in/harsh-chouhan-6a8035255"
+              href={linkedinURL}
               target="_blank"
               rel="noreferrer"
               className="text-gray-300 hover:text-white underline underline-offset-4"
@@ -53,7 +54,7 @@ const Intro = () => {
               LinkedIn
             </a>
             <a
-              href="https://github.com/HarshCh0uhan"
+              href={githubURL}
               target="_blank"
               rel="noreferrer"
               className="text-gray-300 hover:text-white underline underline-offset-4"
@@ -61,7 +62,7 @@ const Intro = () => {
               GitHub
             </a>
             <a
-              href="https://www.geeksforgeeks.org/profile/harsh_chouhan"
+              href={gfgURL}
               target="_blank"
               rel="noreferrer"
               className="text-gray-300 hover:text-white underline underline-offset-4"
@@ -96,10 +97,7 @@ const Intro = () => {
       </div>
 
       {/* Terminal Input */}
-      <div className='flex justify-start items-center'> 
-        <h1 className='font-bold '>harshchouhan:$</h1>
-        <input type="text" className='bg-transparent border-none p-1'/>
-      </div>
+      <TerminalInput />
     </div>
   )
 }

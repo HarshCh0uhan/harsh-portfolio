@@ -2,3 +2,7 @@ export const gifId = ["fqtxCwUd2t6dCzILMq", "3dhmyq6EKw2x7eFt4X", "MU56lYT1Ov07f
 export const introText = "Software Engineer focused on problem-solving and scalable web applications Strong foundation in DSA (500+ Problems Solved) and modern React development. Skilled in building efficient, user-friendly applications with clean code and best practices."
 export const gifURL = "https://www.lofi.cafe/gifs/"
 export const gifExtension = ".gif"
+export const resumeURL = "https://drive.google.com/file/d/18l4OiMyqjUvHc05s226GI3Irjio1maQP/view?usp=drive_link"
+export const linkedinURL = "https://www.linkedin.com/in/harsh-chouhan-6a8035255"
+export const githubURL = "https://github.com/HarshCh0uhan"
+export const gfgURL = "https://www.geeksforgeeks.org/profile/harsh_chouhan"

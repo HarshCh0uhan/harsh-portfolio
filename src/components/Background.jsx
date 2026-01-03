@@ -35,11 +35,11 @@ const Background = () => {
       <div className='absolute inset-0 bg-black/30'></div>
 
       {/* Terminal */}
-      <div className="relative z-20 h-full flex justify-center items-start gap-3 p-5">
-        <Terminal title={"--terminal"} window={false} >
+      <div className="relative z-20 h-full flex justify-center items-start gap-[1%] p-[1%] mt-[2%]">
+        <Terminal title={"--terminal"} window={false} changeFlex={"flex-3"} >
           <Intro />
         </Terminal>
-        <Terminal title={"--help"} window={true} >
+        <Terminal title={"--help"} window={true} changeFlex={"flex-1"}>
           <Instructions />
         </Terminal>
       </div>

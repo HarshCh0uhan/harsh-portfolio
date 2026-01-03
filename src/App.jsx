@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import './App.css'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import Terminal from './components/Terminal.jsx'
 import Background from './components/Background.jsx'
