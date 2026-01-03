@@ -2,9 +2,9 @@ import React from 'react'
 import harshImg from '../assets/harsh.png'
 import { Link } from 'react-router-dom'
 import {useTypewriter} from '../hooks/useTypewriter'
+import { introText } from '../constants/constants'
 
 const Intro = () => {
-  const introText = "Software Engineer focused on problem-solving and scalable web applications Strong foundation in DSA (500+ Problems Solved) and modern React development. Skilled in building efficient, user-friendly applications with clean code and best practices."
   const whoami = useTypewriter("whoami", 60, true);
   const intro = useTypewriter(introText, 18, whoami.done);
   const stats = useTypewriter("stats", 60, intro.done);

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { gifId } from '../constants/constants';
+import { gifId, gifURL, gifExtension } from '../constants/constants';
 import Terminal from './Terminal';
 
 const Background = () => {
   const randomeIndex = Math.floor(Math.random() * gifId.length); 
     const [currentGifIndex, setCurrentGifIndex] = useState(gifId[randomeIndex]);
-    const gifUrl = "https://www.lofi.cafe/gifs/" + currentGifIndex + ".gif";
+    const gifUrl = gifURL + currentGifIndex + gifExtension;
 
     const handleChangeGif = (event) => {
       const newIndex = Math.floor(Math.random() * gifId.length);
