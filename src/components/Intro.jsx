@@ -10,87 +10,95 @@ const Intro = () => {
   const stats = useTypewriter("stats", 60, intro.done);
 
   return (
-    <div className="flex items-start gap-10">
-      
-      {/* Image */}
-      <img
-        src={harshImg}
-        alt="Harsh Chouhan"
-        className="size-[30%]"
-      />
+    <div>
+      <div className="flex items-start gap-10">
+    
+        {/* Image */}
+        <img
+          src={harshImg}
+          alt="Harsh Chouhan"
+          className="size-[40%]"
+        />
 
-      {/* Content */}
-      <div className="flex flex-col gap-4 max-w-xl text-[95%]">
+        {/* Content */}
+        <div className="flex flex-col gap-4 max-w-xl text-[95%]">
 
-        {/* whoami */}
-        <h1 className="font-bold text-green-400">
-          harshchouhan:$ <span className="underline">{whoami.displayed}</span>
-          {!whoami.done && <span className="blinking-cursor">|</span>}
-        </h1>
-
-        {whoami.done && (<p className="text-gray-200 leading-relaxed">
-          {intro.displayed}
-          {!intro.done && <span className="blinking-cursor">|</span>}
-        </p>)}
-
-        {/* HR Links */}
-        {intro.done &&(<div className="flex gap-4 text-sm">
-          <a
-            href="/Harsh_Chouhan_Resume.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="text-gray-300 hover:text-white underline underline-offset-4"
-          >
-            Resume
-          </a>
-          <a
-            href="https://www.linkedin.com/in/harsh-chouhan-6a8035255"
-            target="_blank"
-            rel="noreferrer"
-            className="text-gray-300 hover:text-white underline underline-offset-4"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://github.com/HarshCh0uhan"
-            target="_blank"
-            rel="noreferrer"
-            className="text-gray-300 hover:text-white underline underline-offset-4"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://www.geeksforgeeks.org/profile/harsh_chouhan"
-            target="_blank"
-            rel="noreferrer"
-            className="text-gray-300 hover:text-white underline underline-offset-4"
-          >
-            GFG
-          </a>
-        </div>)}
-
-        {/* stats */}
-        {intro.done &&(
-        <>
-          <h1 className="font-bold text-green-400 mt-4">
-            harshchouhan:$ <span className="underline">{stats.displayed}</span>
-            {!stats.done && <span className="blinking-cursor">|</span>}
+          {/* whoami */}
+          <h1 className="font-bold text-green-400">
+            harshchouhan:$ <span className="underline">{whoami.displayed}</span>
+            {!whoami.done && <span className="blinking-cursor">|</span>}
           </h1>
 
-          {stats.done && (
-          <div className="flex flex-col gap-1 text-gray-200">
-            <p>
-              <span className="text-green-300">GFG:</span> Top 8 Institute Rank
-            </p>
-            <p>
-              <span className="text-green-300">LeetCode:</span> 500+ (Brute → Better → Optimal)
-            </p>
-            <p>
-              <span className="text-green-300">Focus:</span> Patterns, Clean C++
-            </p>
+          {whoami.done && (<p className="text-gray-200 leading-relaxed">
+            {intro.displayed}
+            {!intro.done && <span className="blinking-cursor">|</span>}
+          </p>)}
+
+          {/* HR Links */}
+          {intro.done &&(<div className="flex gap-4 text-sm">
+            <a
+              href="/Harsh_Chouhan_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-300 hover:text-white underline underline-offset-4"
+            >
+              Resume
+            </a>
+            <a
+              href="https://www.linkedin.com/in/harsh-chouhan-6a8035255"
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-300 hover:text-white underline underline-offset-4"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/HarshCh0uhan"
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-300 hover:text-white underline underline-offset-4"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://www.geeksforgeeks.org/profile/harsh_chouhan"
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-300 hover:text-white underline underline-offset-4"
+              >
+              GFG
+            </a>
           </div>)}
-        </>
-        )}
+
+          {/* stats */}
+          {intro.done &&(
+          <>
+            <h1 className="font-bold text-green-400 mt-4">
+              harshchouhan:$ <span className="underline">{stats.displayed}</span>
+              {!stats.done && <span className="blinking-cursor">|</span>}
+            </h1>
+
+            {stats.done && (
+              <div className="flex flex-col gap-1 text-gray-200">
+              <p>
+                <span className="text-green-300">GFG:</span> Top 8 Institute Rank
+              </p>
+              <p>
+                <span className="text-green-300">LeetCode:</span> 500+ (Brute → Better → Optimal)
+              </p>
+              <p>
+                <span className="text-green-300">Focus:</span> Patterns, Clean C++
+              </p>
+            </div>)}
+          </>
+          )}
+        </div>
+      </div>
+
+      {/* Terminal Input */}
+      <div className='flex justify-start items-center'> 
+        <h1 className='font-bold '>harshchouhan:$</h1>
+        <input type="text" className='bg-transparent border-none p-1'/>
       </div>
     </div>
   )
