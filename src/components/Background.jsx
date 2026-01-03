@@ -32,7 +32,7 @@ const Background = () => {
       <div className='absolute inset-0 bg-black/30'></div>
 
       {/* Terminal */}
-      <div className="relative z-20 h-full flex justify-around items-start mt-[3%] ">
+      <div className="relative z-20 h-full flex justify-center items-start mt-[3%] gap-10">
         <Terminal />
 
         {/* Instructions */}
