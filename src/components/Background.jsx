@@ -35,7 +35,8 @@ const Background = () => {
       <div className='absolute inset-0 bg-black/30'></div>
 
       {/* Terminal */}
-      <div className="relative z-20 h-full flex justify-center items-start gap-[1%] p-[1%] mt-[2%]">
+      <div className="relative z-20 h-full flex flex-col md:flex-row justify-center
+       items-stretch gap-3 md:gap-[1%] p-2 md:p-[1%] mt-2 md:mt-[2%]">
         <Terminal title={"--terminal"} window={false} changeFlex={"flex-3"} >
           <Intro />
         </Terminal>

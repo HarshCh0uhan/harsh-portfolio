@@ -12,17 +12,17 @@ const Intro = () => {
 
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex flex-col md:flex-row items-center gap-4">
     
         {/* Image */}
         <img
           src={harshImg}
           alt="Harsh Chouhan"
-          className="size-[30%]"
+          className="w-32 h-32 sm:w-[30%] sm:h-auto object-contain"
         />
 
         {/* Content */}
-        <div className="flex flex-col gap-3 text-[95%]">
+        <div className="flex flex-col gap-3 text:sm sm:text-[95%]">
 
           {/* whoami */}
           <h1 className="font-bold text-green-400">
@@ -36,7 +36,7 @@ const Intro = () => {
           </p>)}
 
           {/* HR Links */}
-          {intro.done &&(<div className="flex justify-evenly text-sm">
+          {intro.done &&(<div className="flex flex-wrap gap-3 justify-center sm:justify-evenly text-sm">
             <a
               href={resumeURL}
               target="_blank"
@@ -80,7 +80,7 @@ const Intro = () => {
             </h1>
 
             {stats.done && (
-              <div className="flex flex-col gap-1 text-gray-200">
+              <div className="flex flex-col gap-1 text-gray-200 text-sm sm:text-base">
               <p>
                 <span className="text-green-300">GFG:</span> Top 8 Institute Rank
               </p>
