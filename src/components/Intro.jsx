@@ -27,12 +27,16 @@ const Intro = () => {
           {/* whoami */}
           <h1 className="font-bold text-green-400">
             harshchouhan:$ <span className="underline">{whoami.displayed}</span>
-            {!whoami.done && <span className="blinking-cursor">|</span>}
+            {!whoami.done && <span className="blinking-cursor">
+              <span className="inline-block w-2 h-4 bg-green-500 ml-1"></span>  
+            </span>}
           </h1>
 
           {whoami.done && (<p className="text-gray-200 leading-relaxed">
             {intro.displayed}
-            {!intro.done && <span className="blinking-cursor">|</span>}
+            {!intro.done && <span className="blinking-cursor">
+              <span className="inline-block w-2 h-4 bg-green-500 ml-1"></span>  
+            </span>}
           </p>)}
 
           {/* HR Links */}
@@ -76,7 +80,9 @@ const Intro = () => {
           <>
             <h1 className="font-bold text-green-400 mt-4">
               harshchouhan:$ <span className="underline">{stats.displayed}</span>
-              {!stats.done && <span className="blinking-cursor">|</span>}
+              {!stats.done && <span className="blinking-cursor">
+                <span className="inline-block w-2 h-4 bg-green-500 ml-1"></span>
+              </span>}
             </h1>
 
             {stats.done && (

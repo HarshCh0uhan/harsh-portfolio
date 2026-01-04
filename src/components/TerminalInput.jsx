@@ -1,10 +1,53 @@
-import React from 'react'
+import { useEffect, useState } from "react"
 
 const TerminalInput = () => {
+  const [command, setCommand] = useState("");
+  const [cursor, setCursor] = useState(0);
+
+  useEffect(() => {
+      const handleKeyDown = (e) => {
+        if (e.ctrlKey || e.metaKey || e.altKey) return
+        e.preventDefault()
+  
+        if (e.key === "Backspace") {
+          if (cursor === 0) return
+          setCommand(
+            command.slice(0, cursor - 1) + command.slice(cursor)
+          )
+          setCursor(cursor - 1)
+        }
+  
+        else if (e.key === "Enter") {
+          setCommand("")
+          setCursor(0)
+        }
+  
+        else if (e.key === "ArrowLeft") {
+          setCursor((c) => Math.max(0, c - 1))
+        }
+  
+        else if (e.key === "ArrowRight") {
+          setCursor((c) => Math.min(command.length, c + 1))
+        }
+  
+        else if (e.key.length === 1) {
+          setCommand(
+            command.slice(0, cursor) + e.key + command.slice(cursor)
+          )
+          setCursor(cursor + 1)
+        }
+      }
+  
+      window.addEventListener("keydown", handleKeyDown)
+      return () => window.removeEventListener("keydown", handleKeyDown)
+    }, [command, cursor])
+
   return (
-    <div className='flex items-center mt-3 gap-2 text-sm'> 
-        <h1 className='font-bold shrink-0'>harshchouhan:$</h1>
-        <input type="text" className='bg-transparent border-none w-full outline-none'/>
+    <div className="flex items-center gap-1 mt-4 text-green-400 font-mono">
+      <span className="font-bold">harshchouhan:$</span>
+      <span>{command.slice(0, cursor)}</span>
+      <span className="inline-block w-2 h-4 bg-green-500 blink"></span>
+      <span>{command.slice(cursor)}</span>
     </div>
   )
 }

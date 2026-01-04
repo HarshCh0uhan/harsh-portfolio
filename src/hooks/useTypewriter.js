@@ -24,4 +24,3 @@ export const useTypewriter = (text, speed = 25, enabled = true) => {
 
   return {displayed, done};
 }
-

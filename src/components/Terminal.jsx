@@ -13,7 +13,7 @@ const Terminal = ({children, title, window, changeFlex}) => {
     <div className={`bg-black/70 rounded-xl border border-white/30
      shadow-gray-400 shadow-2xs backdrop-blur-md font-mono
      transition-all duration-300 ease-in-out overflow-auto no-scrollbar
-     ${minimize ? 'w-full md:w-[20%] h-[5%] lg:h-[8%]' 
+     ${minimize ? 'w-full md:w-[25%] xl:w-[15%] h-[5%]' 
     : `w-full h-[85vh] md:h-[90%] ${changeFlex}`}`}>
       
       {/* Terminal Header */}
@@ -22,9 +22,11 @@ const Terminal = ({children, title, window, changeFlex}) => {
             handleMinimize()
           }} className='flex justify-between items-center rounded-xl z-20 bg-zinc-800/80
           backdrop-blur-3xl sticky top-0 border-b-2 cursor-pointer border-white/30
-          px-3 py-2 md:p-3 text-sm md:text-base font-bold'>
-        <div className='text-green-400'>{">_"}</div>
-        <div className='text-white'>{title}</div>
+          px-3 py-2 md:p-2 text-sm md:text-base font-bold'>
+        <div className="text-green-400 flex items-center gap-1 shrink-0">
+          <span className="text-sm sm:text-base md:text-lg">{">_"}</span>
+        </div>
+        <div className='text-white truncate max-w-[70%] text-center'>{title}</div>
       </div>
       
       {/* Intro Component */}
