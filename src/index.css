@@ -18,3 +18,25 @@
 .blink {
   animation: blink 1s step-start infinite;
 }
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.2em;
+  background-color: #22c55e;
+  vertical-align: bottom;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* space visualization */
+.terminal-space {
+  display: inline-block;
+  width: 0.5em;
+}
+

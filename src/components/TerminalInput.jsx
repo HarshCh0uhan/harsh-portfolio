@@ -16,6 +16,11 @@ const TerminalInput = () => {
           )
           setCursor(cursor - 1)
         }
+
+        else if(e.key === "Delete") {
+          if(cursor === command.length) return
+          setCommand(command.slice(0, cursor) + command.slice(cursor + 1));
+        }
   
         else if (e.key === "Enter") {
           setCommand("")
@@ -29,7 +34,15 @@ const TerminalInput = () => {
         else if (e.key === "ArrowRight") {
           setCursor((c) => Math.min(command.length, c + 1))
         }
-  
+
+        else if (e.key === " ") {
+          setCommand(
+            command.slice(0, cursor) + " " + command.slice(cursor)
+          )
+          setCursor(cursor + 1)
+        }
+
+
         else if (e.key.length === 1) {
           setCommand(
             command.slice(0, cursor) + e.key + command.slice(cursor)
@@ -45,8 +58,21 @@ const TerminalInput = () => {
   return (
     <div className="flex items-center gap-1 mt-4 text-green-400 font-mono">
       <span className="font-bold">harshchouhan:$</span>
-      <span>{command.slice(0, cursor)}</span>
-      <span className="inline-block w-2 h-4 bg-green-500 blink"></span>
+      {/* text before cursor */}
+      <span>
+        {command.slice(0, cursor).split("").map((ch, i) =>
+          ch === " " ? (
+            <span key={i} className="terminal-space"></span>
+          ) : (
+            <span key={i}>{ch}</span>
+          )
+        )}
+      </span>
+
+      {/* cursor */}
+      <span className="terminal-cursor"></span>
+
+      {/* text after cursor */}
       <span>{command.slice(cursor)}</span>
     </div>
   )
