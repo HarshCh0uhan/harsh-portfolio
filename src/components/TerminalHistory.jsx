@@ -9,7 +9,7 @@ const TerminalHistory = () => {
         {commandHistory.map((cmd, index) => (
             <div key={index} className="flex items-center gap-1 mt-4 text-green-400 font-mono">
                 <span className="font-bold">harshchouhan:$</span>
-                {cmd}
+                <span>{cmd}</span>
             </div>
         ))}
     </div>
