@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { gifId, gifURL, gifExtension } from '../constants/constants';
+import { gifId, gifURL, gifExtension } from '../utils/constants';
 import Terminal from './Terminal';
 import Intro from './Intro';
 import Instructions from './Instructions';

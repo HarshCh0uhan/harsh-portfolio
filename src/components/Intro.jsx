@@ -2,8 +2,9 @@ import React from 'react'
 import harshImg from '../assets/harsh.png'
 import { Link } from 'react-router-dom'
 import {useTypewriter} from '../hooks/useTypewriter'
-import { resumeURL, linkedinURL, githubURL, gfgURL, introText } from '../constants/constants'
+import { resumeURL, linkedinURL, githubURL, gfgURL, introText } from '../utils/constants'
 import TerminalInput from './TerminalInput'
+import TerminalHistory from './TerminalHistory'
 
 const Intro = () => {
   const whoami = useTypewriter("whoami", 60, true);
@@ -103,6 +104,7 @@ const Intro = () => {
       </div>
 
       {/* Terminal Input */}
+      <TerminalHistory />
       <TerminalInput />
     </div>
   )

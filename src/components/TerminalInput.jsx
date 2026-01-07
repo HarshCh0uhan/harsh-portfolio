@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux";
+import { setCommand, setCursor, updateCommandHistory } from "../utils/terminalSlice";
 
 const TerminalInput = () => {
-  const [command, setCommand] = useState("");
-  const [cursor, setCursor] = useState(0);
+  const dispatch = useDispatch();
+  const {
+    currentCommand: command,
+    currentCursor: cursor
+  } = useSelector(state => state.terminal);  
 
   useEffect(() => {
       const handleKeyDown = (e) => {
@@ -11,43 +16,43 @@ const TerminalInput = () => {
   
         if (e.key === "Backspace") {
           if (cursor === 0) return
-          setCommand(
+          dispatch(setCommand(
             command.slice(0, cursor - 1) + command.slice(cursor)
-          )
-          setCursor(cursor - 1)
+          ))
+          dispatch(setCursor(cursor - 1))
         }
 
         else if(e.key === "Delete") {
           if(cursor === command.length) return
-          setCommand(command.slice(0, cursor) + command.slice(cursor + 1));
+          dispatch(setCommand(command.slice(0, cursor) + command.slice(cursor + 1)));
         }
   
         else if (e.key === "Enter") {
-          setCommand("")
-          setCursor(0)
+          dispatch(setCommand(""));
+          dispatch(setCursor(0));
+          dispatch(updateCommandHistory(command));
         }
   
         else if (e.key === "ArrowLeft") {
-          setCursor((c) => Math.max(0, c - 1))
+          dispatch(setCursor(Math.max(0, cursor - 1)))
+          
         }
-  
+        
         else if (e.key === "ArrowRight") {
-          setCursor((c) => Math.min(command.length, c + 1))
+          dispatch(setCursor(Math.min(command.length, cursor + 1)))
         }
 
         else if (e.key === " ") {
-          setCommand(
+          dispatch(setCommand(
             command.slice(0, cursor) + " " + command.slice(cursor)
-          )
-          setCursor(cursor + 1)
+          ));
+          dispatch(setCursor(cursor + 1))
         }
-
-
+        
+        
         else if (e.key.length === 1) {
-          setCommand(
-            command.slice(0, cursor) + e.key + command.slice(cursor)
-          )
-          setCursor(cursor + 1)
+          dispatch(setCommand( command.slice(0, cursor) + e.key + command.slice(cursor) ));
+          dispatch(setCursor(cursor + 1));
         }
       }
   
@@ -60,13 +65,13 @@ const TerminalInput = () => {
       <span className="font-bold">harshchouhan:$</span>
       {/* text before cursor */}
       <span>
-        {command.slice(0, cursor).split("").map((ch, i) =>
+      {command.slice(0, cursor).split("").map((ch, i) =>
           ch === " " ? (
-            <span key={i} className="terminal-space"></span>
+          <span key={i} className="terminal-space"></span>
           ) : (
-            <span key={i}>{ch}</span>
+          <span key={i}>{ch}</span>
           )
-        )}
+      )}
       </span>
 
       {/* cursor */}
