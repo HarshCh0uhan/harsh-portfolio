@@ -3,7 +3,7 @@ import { resumeURL, linkedinURL, githubURL, gfgURL, introText } from '../utils/c
 
 const CommandResult = ({ command }) => {
   return (
-    <div className='w-[50%]'>
+    <div className='flex overflow-x-auto mt-1 mb-4'>
         {(command === "whoami") ? (
             <div className="flex flex-col gap-3 text-gray-200">
                 <p>Hey, I'm Harsh.</p>

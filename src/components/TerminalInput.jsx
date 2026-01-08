@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCommand, setCursor, updateCommandHistory } from "../utils/terminalSlice";
 
@@ -9,94 +9,74 @@ const TerminalInput = () => {
     currentCursor: cursor,
   } = useSelector(state => state.terminal);  
 
+  const bottomRef = useRef(null); // <-- REF for scrolling
+
   useEffect(() => {
       const handleKeyDown = (e) => {
-        if (e.ctrlKey || e.metaKey || e.altKey) return
-        const BLOCKED_KEYS = [
-          "Backspace",
-          "Delete",
-          "Enter",
-          "ArrowLeft",
-          "ArrowRight",
-          " "
-        ];
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        const BLOCKED_KEYS = ["Backspace","Delete","Enter","ArrowLeft","ArrowRight"," "];
 
-        if (BLOCKED_KEYS.includes(e.key)) {
-          e.preventDefault();
-        }
+        if (BLOCKED_KEYS.includes(e.key)) e.preventDefault();
   
         if (e.key === "Backspace") {
-          if (cursor === 0) return
-          dispatch(setCommand(
-            command.slice(0, cursor - 1) + command.slice(cursor)
-          ))
-          dispatch(setCursor(cursor - 1))
+          if (cursor === 0) return;
+          dispatch(setCommand(command.slice(0, cursor - 1) + command.slice(cursor)));
+          dispatch(setCursor(cursor - 1));
         }
-
-        else if(e.key === "Delete") {
-          if(cursor === command.length) return
+        else if (e.key === "Delete") {
+          if (cursor === command.length) return;
           dispatch(setCommand(command.slice(0, cursor) + command.slice(cursor + 1)));
         }
-  
         else if (e.key === "Enter") {
           if (!command.trim()) return;
-          
           dispatch(setCommand(""));
           dispatch(setCursor(0));
-          dispatch(updateCommandHistory({
-            id: Date.now(),
-            command}));
+          dispatch(updateCommandHistory({ id: Date.now(), command }));
         }
-        
         else if (e.key === "ArrowLeft") {
-          dispatch(setCursor(Math.max(0, cursor - 1)))
-          
+          dispatch(setCursor(Math.max(0, cursor - 1)));
         }
-        
         else if (e.key === "ArrowRight") {
-          dispatch(setCursor(Math.min(command.length, cursor + 1)))
+          dispatch(setCursor(Math.min(command.length, cursor + 1)));
         }
-
         else if (e.key === " ") {
-          dispatch(setCommand(
-            command.slice(0, cursor) + " " + command.slice(cursor)
-          ));
-          dispatch(setCursor(cursor + 1))
-        }
-        
-        
-        else if (e.key.length === 1) {
-          dispatch(setCommand( command.slice(0, cursor) + e.key + command.slice(cursor) ));
+          dispatch(setCommand(command.slice(0, cursor) + " " + command.slice(cursor)));
           dispatch(setCursor(cursor + 1));
         }
-      }
+        else if (e.key.length === 1) {
+          dispatch(setCommand(command.slice(0, cursor) + e.key + command.slice(cursor)));
+          dispatch(setCursor(cursor + 1));
+        }
+      };
   
-      window.addEventListener("keydown", handleKeyDown)
-      return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [command, cursor])
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [command, cursor, dispatch]);
+
+  // Scroll to bottom whenever command changes
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [command]);
 
   return (
-    <div className="flex items-center gap-1 mt-4 text-green-400 font-mono">
-      <span className="font-bold">harshchouhan:$</span>
-      {/* text before cursor */}
-      <span>
-      {command.slice(0, cursor).split("").map((ch, i) =>
-          ch === " " ? (
-          <span key={i} className="terminal-space"></span>
-          ) : (
-          <span key={i}>{ch}</span>
-          )
-      )}
-      </span>
+    <>
+      <div className="flex items-center gap-1 mt-4 text-green-400 font-mono">
+        <span className="font-bold">harshchouhan:$</span>
+        <span>
+          {command.slice(0, cursor).split("").map((ch, i) =>
+            ch === " " ? <span key={i} className="terminal-space"></span> : <span key={i}>{ch}</span>
+          )}
+        </span>
+        <span className="terminal-cursor"></span>
+        <span>{command.slice(cursor)}</span>
+      </div>
 
-      {/* cursor */}
-      <span className="terminal-cursor"></span>
+      {/* Dummy div at the bottom to scroll into view */}
+      <div ref={bottomRef} />
+    </>
+  );
+};
 
-      {/* text after cursor */}
-      <span>{command.slice(cursor)}</span>
-
-    </div>
-  )
-}
-
-export default TerminalInput
+export default TerminalInput;
