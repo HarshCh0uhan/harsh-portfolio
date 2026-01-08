@@ -31,7 +31,7 @@ const Terminal = ({children, title, window, changeFlex}) => {
       
       {/* Intro Component */}
       {!minimize && (
-      <div className='text-green-400 w-full h-full p-[2%]'>
+      <div className='w-full h-full p-[2%]'>
         {children}
       </div>)} 
     </div>

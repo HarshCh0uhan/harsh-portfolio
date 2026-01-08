@@ -34,87 +34,96 @@ const Intro = () => {
           alt="Harsh Chouhan"
           className="w-32 h-32 sm:w-[30%] sm:h-auto object-contain"
         />
-        {/* Whoami Box */}
-    
-
-
-
-
         {/* Content */}
-        <div className="flex flex-col gap-3 font-mono text-sm sm:text-base">
-
-        <div className="border border-green-700 rounded-md p-4 text-gray-200 font-mono">
+        <div className="flex flex-col gap-3 font-mono text-sm">
           {/* whoami command */}
           <div className="text-green-400 font-bold">
             harshchouhan:$ <span className="underline">{whoami.displayed}</span>
             {!whoami.done && cursor}
           </div>
 
-          {/* Intro output */}
-          {whoami.done && (
-            <>
-              <div className="mb-3">
-                <p className="text-green-400 font-bold">
-                  ── WHOAMI ──
-                </p>
-                <p className="text-lg font-semibold">
-                  Harsh Chouhan
-                </p>
-                <p className="text-sm text-gray-400">
-                  Software Engineer · Problem Solver · Fast Learner
-                </p>
-              </div>
+          <div className="border border-green-700 rounded-md p-4 text-gray-200 font-mono">
 
-              <div className="flex flex-col gap-2 text-sm sm:text-base">
-                {Array.isArray(introText) &&
-                  introText.map((line, idx) => (
-                    <p key={idx} className="leading-relaxed">
-                      {line}
+            {/* Intro output */}
+            {whoami.done && (
+              <>
+                <div className="mb-3">
+                  <p className="text-green-400 font-bold">
+                    ── WHOAMI ──
+                  </p>
+                  <p className="text-lg font-semibold">
+                    Harsh Chouhan
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    Software Engineer · Problem Solver · Fast Learner
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <p>
+                    {line1.displayed}
+                    {!line1.done && cursor}
+                  </p>
+                  {line1.done && (
+                    <p>
+                      {line2.displayed}
+                      {!line2.done && cursor}
                     </p>
-                  ))
-                }
-              </div>
-            </>
-          )}
+                  )}
+                  {line2.done && (
+                    <p>
+                      {line3.displayed}
+                      {!line3.done && cursor}
+                    </p>
+                  )}
+                  {line3.done && (
+                    <p>
+                      {line4.displayed}
+                      {!line4.done && cursor}
+                    </p>
+                  )}
+                </div>
+              </>
+            )}
 
-          {/* Links */}
-          {line4.done && (
-          <div className="mt-4 pt-3 border-t border-green-800 flex flex-wrap gap-4 text-sm">
-            <a
-              href={resumeURL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-300 hover:text-green-400 transition"
-            >
-              [ Resume ]
-            </a>
-            <a
-              href={linkedinURL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-300 hover:text-green-400 transition"
-            >
-              [ LinkedIn ]
-            </a>
-            <a
-              href={githubURL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-300 hover:text-green-400 transition"
-            >
-              [ GitHub ]
-            </a>
-            <a
-              href={gfgURL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-300 hover:text-green-400 transition"
-            >
-              [ GFG ]
-            </a>
+            {/* Links */}
+            {line4.done && (
+            <div className="mt-4 pt-3 border-t border-green-800 flex flex-wrap gap-4 text-xs">
+              <a
+                href={resumeURL}
+                target="_blank"
+                rel="noreferrer"
+                className="text-gray-300 hover:text-green-400 transition"
+              >
+                [ Resume ]
+              </a>
+              <a
+                href={linkedinURL}
+                target="_blank"
+                rel="noreferrer"
+                className="text-gray-300 hover:text-green-400 transition"
+              >
+                [ LinkedIn ]
+              </a>
+              <a
+                href={githubURL}
+                target="_blank"
+                rel="noreferrer"
+                className="text-gray-300 hover:text-green-400 transition"
+              >
+                [ GitHub ]
+              </a>
+              <a
+                href={gfgURL}
+                target="_blank"
+                rel="noreferrer"
+                className="text-gray-300 hover:text-green-400 transition"
+              >
+                [ GFG ]
+              </a>
+            </div>
+            )}
           </div>
-          )}
-        </div>
 
           {/* stats command */}
           {line4.done && (
@@ -125,7 +134,7 @@ const Intro = () => {
               </div>
 
               {stats.done && (
-                <div className="mt-2 border border-green-700 rounded-md p-3 text-gray-200 text-sm sm:text-base">
+                <div className="mt-2 border border-green-700 rounded-md p-3 text-gray-200 text-sm">
                   <p className="text-green-400 font-bold mb-2">
                     ── Developer Stats ──
                   </p>
@@ -138,9 +147,6 @@ const Intro = () => {
                   </p>
                   <p>
                     <span className="text-green-300">Build Style:</span> Brute → Better → Optimal
-                  </p>
-                  <p>
-                    <span className="text-green-300">Main Focus:</span> Patterns · Clean C++
                   </p>
                 </div>
               )}

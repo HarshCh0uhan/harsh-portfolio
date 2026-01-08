@@ -39,9 +39,9 @@ const SkillMatrix = () => {
         </p>
 
         <div className="flex flex-col gap-2">
-            <SkillBar label="DSA" value={90} />
-            <SkillBar label="React" value={80} />
-            <SkillBar label="Redux" value={75} />
+            <SkillBar label="DSA" value={75} />
+            <SkillBar label="React" value={85} />
+            <SkillBar label="Redux" value={80} />
             <SkillBar label="Node" value={70} />
         </div>
         </div>
