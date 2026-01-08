@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCommand, setCursor, updateCommandHistory, emptyCommandHistory } from "../utils/terminalSlice";
+import { BLOCKED_KEYS } from "../utils/constants";
 
 const TerminalInput = () => {
   const dispatch = useDispatch();
@@ -14,8 +15,6 @@ const TerminalInput = () => {
   useEffect(() => {
       const handleKeyDown = (e) => {
         if (e.ctrlKey || e.metaKey || e.altKey) return;
-        const BLOCKED_KEYS = ["Backspace","Delete","Enter","ArrowLeft","ArrowRight"," "];
-
         if (BLOCKED_KEYS.includes(e.key)) e.preventDefault();
   
         if (e.key === "Backspace") {
