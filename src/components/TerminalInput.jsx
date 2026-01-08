@@ -9,7 +9,7 @@ const TerminalInput = () => {
     currentCursor: cursor,
   } = useSelector(state => state.terminal);  
 
-  const bottomRef = useRef(null); // <-- REF for scrolling
+  const bottomRef = useRef(null);
 
   useEffect(() => {
       const handleKeyDown = (e) => {
@@ -73,7 +73,6 @@ const TerminalInput = () => {
         <span>{command.slice(cursor)}</span>
       </div>
 
-      {/* Dummy div at the bottom to scroll into view */}
       <div ref={bottomRef} />
     </>
   );
