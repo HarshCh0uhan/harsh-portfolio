@@ -48,7 +48,9 @@ const CommandResult = ({ command }) => {
                 <span className="text-green-300">Main Focus:</span> Patterns · Clean C++
                 </p>
             </div>
-        ) : null}
+        ) : (
+            <p className="text-gray-200">Command not found: {command}</p>
+        )}
     </div>
   )
 }
