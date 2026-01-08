@@ -1,18 +1,21 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { updateCommandHistory } from '../utils/terminalSlice';
+import CommandResult from './CommandResult';
 
 const TerminalHistory = () => {
     const {commandHistory} = useSelector(state => state.terminal);
   return (
-    <div>
-        {commandHistory.map((cmd, index) => (
-            <div key={index} className="flex items-center gap-1 mt-4 text-green-400 font-mono">
-                <span className="font-bold">harshchouhan:$</span>
-                <span>{cmd}</span>
-            </div>
-        ))}
-    </div>
+    <>
+      {commandHistory.map((cmd) => (
+        <React.Fragment key={cmd.id}>
+          <div className="flex items-center gap-1 mt-4 text-green-400 font-mono">
+            <span className="font-bold">harshchouhan:$</span>
+            <span>{cmd.command}</span>
+          </div>
+          <CommandResult command={cmd.command} />
+        </React.Fragment>
+      ))}
+    </>
   )
 }
 

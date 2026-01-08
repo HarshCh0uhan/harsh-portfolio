@@ -1,20 +1,33 @@
-import React from 'react'
-import harshImg from '../assets/harsh.png'
-import { Link } from 'react-router-dom'
-import {useTypewriter} from '../hooks/useTypewriter'
-import { resumeURL, linkedinURL, githubURL, gfgURL, introText } from '../utils/constants'
-import TerminalInput from './TerminalInput'
-import TerminalHistory from './TerminalHistory'
+import React from "react";
+import harshImg from "../assets/harsh.png";
+import { useTypewriter } from "../hooks/useTypewriter";
+import {
+  resumeURL,
+  linkedinURL,
+  githubURL,
+  gfgURL,
+  introText,
+} from "../utils/constants";
+import TerminalInput from "./TerminalInput";
+import TerminalHistory from "./TerminalHistory";
 
 const Intro = () => {
   const whoami = useTypewriter("whoami", 60, true);
-  const intro = useTypewriter(introText, 10, whoami.done);
-  const stats = useTypewriter("stats", 60, intro.done);
+
+  const line1 = useTypewriter(introText[0], 25, whoami.done);
+  const line2 = useTypewriter(introText[1], 25, line1.done);
+  const line3 = useTypewriter(introText[2], 25, line2.done);
+  const line4 = useTypewriter(introText[3], 25, line3.done);
+
+  const stats = useTypewriter("stats", 60, line4.done);
+
+  const cursor = (
+    <span className="inline-block w-2 h-4 bg-green-500 ml-1 animate-pulse" />
+  );
 
   return (
     <div>
-      <div className="flex flex-col md:flex-row items-center gap-4">
-    
+      <div className="flex flex-col md:flex-row items-center gap-6">
         {/* Image */}
         <img
           src={harshImg}
@@ -23,91 +36,100 @@ const Intro = () => {
         />
 
         {/* Content */}
-        <div className="flex flex-col gap-3 text:sm sm:text-[95%]">
+        <div className="flex flex-col gap-3 font-mono text-sm sm:text-base">
 
-          {/* whoami */}
-          <h1 className="font-bold text-green-400">
+          {/* whoami command */}
+          <div className="text-green-400 font-bold">
             harshchouhan:$ <span className="underline">{whoami.displayed}</span>
-            {!whoami.done && <span className="blinking-cursor">
-              <span className="inline-block w-2 h-4 bg-green-500 ml-1"></span>  
-            </span>}
-          </h1>
+            {!whoami.done && cursor}
+          </div>
 
-          {whoami.done && (<p className="text-gray-200 leading-relaxed">
-            {intro.displayed}
-            {!intro.done && <span className="blinking-cursor">
-              <span className="inline-block w-2 h-4 bg-green-500 ml-1"></span>  
-            </span>}
-          </p>)}
-
-          {/* HR Links */}
-          {intro.done &&(<div className="flex flex-wrap gap-3 justify-center sm:justify-evenly text-sm">
-            <a
-              href={resumeURL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-300 hover:text-white underline underline-offset-4"
-            >
-              Resume
-            </a>
-            <a
-              href={linkedinURL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-300 hover:text-white underline underline-offset-4"
-            >
-              LinkedIn
-            </a>
-            <a
-              href={githubURL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-300 hover:text-white underline underline-offset-4"
-            >
-              GitHub
-            </a>
-            <a
-              href={gfgURL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-gray-300 hover:text-white underline underline-offset-4"
-              >
-              GFG
-            </a>
-          </div>)}
-
-          {/* stats */}
-          {intro.done &&(
-          <>
-            <h1 className="font-bold text-green-400 mt-4">
-              harshchouhan:$ <span className="underline">{stats.displayed}</span>
-              {!stats.done && <span className="blinking-cursor">
-                <span className="inline-block w-2 h-4 bg-green-500 ml-1"></span>
-              </span>}
-            </h1>
-
-            {stats.done && (
-              <div className="flex flex-col gap-1 text-gray-200 text-sm sm:text-base">
+          {/* Intro output */}
+          {whoami.done && (
+            <div className="flex flex-col gap-2 text-gray-200">
+              <p>Hey, I'm Harsh</p>
               <p>
-                <span className="text-green-300">GFG:</span> Top 8 Institute Rank
+                {line1.displayed}
+                {!line1.done && cursor}
               </p>
-              <p>
-                <span className="text-green-300">LeetCode:</span> 500+ (Brute → Better → Optimal)
-              </p>
-              <p>
-                <span className="text-green-300">Focus:</span> Patterns, Clean C++
-              </p>
-            </div>)}
-          </>
+              {line1.done && (
+                <p>
+                  {line2.displayed}
+                  {!line2.done && cursor}
+                </p>
+              )}
+              {line2.done && (
+                <p>
+                  {line3.displayed}
+                  {!line3.done && cursor}
+                </p>
+              )}
+              {line3.done && (
+                <p>
+                  {line4.displayed}
+                  {!line4.done && cursor}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Links */}
+          {line4.done && (
+            <div className="flex flex-wrap justify-evenly gap-3 text-sm text-gray-300">
+              <a href={resumeURL} target="_blank" rel="noreferrer" className="underline hover:text-white">
+                Resume
+              </a>
+              <a href={linkedinURL} target="_blank" rel="noreferrer" className="underline hover:text-white">
+                LinkedIn
+              </a>
+              <a href={githubURL} target="_blank" rel="noreferrer" className="underline hover:text-white">
+                GitHub
+              </a>
+              <a href={gfgURL} target="_blank" rel="noreferrer" className="underline hover:text-white">
+                GFG
+              </a>
+            </div>
+          )}
+
+          {/* stats command */}
+          {line4.done && (
+            <>
+              <div className="text-green-400 font-bold mt-4">
+                harshchouhan:$ <span className="underline">{stats.displayed}</span>
+                {!stats.done && cursor}
+              </div>
+
+              {stats.done && (
+                <div className="mt-2 border border-green-700 rounded-md p-3 text-gray-200 text-sm sm:text-base">
+                  <p className="text-green-400 font-bold mb-2">
+                    ── Developer Stats ──
+                  </p>
+
+                  <p>
+                    <span className="text-green-300">Rank:</span> Top 8 (GFG Institute)
+                  </p>
+                  <p>
+                    <span className="text-green-300">XP:</span> 500+ DSA Problems Solved
+                  </p>
+                  <p>
+                    <span className="text-green-300">Build Style:</span> Brute → Better → Optimal
+                  </p>
+                  <p>
+                    <span className="text-green-300">Main Focus:</span> Patterns · Clean C++
+                  </p>
+                </div>
+              )}
+
+            </>
           )}
         </div>
       </div>
 
-      {/* Terminal Input */}
+      {/* Terminal */}
       <TerminalHistory />
       <TerminalInput />
     </div>
-  )
-}
+  );
+};
 
-export default Intro
+export default Intro;

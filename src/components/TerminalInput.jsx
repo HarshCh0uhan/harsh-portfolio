@@ -6,13 +6,24 @@ const TerminalInput = () => {
   const dispatch = useDispatch();
   const {
     currentCommand: command,
-    currentCursor: cursor
+    currentCursor: cursor,
   } = useSelector(state => state.terminal);  
 
   useEffect(() => {
       const handleKeyDown = (e) => {
         if (e.ctrlKey || e.metaKey || e.altKey) return
-        e.preventDefault()
+        const BLOCKED_KEYS = [
+          "Backspace",
+          "Delete",
+          "Enter",
+          "ArrowLeft",
+          "ArrowRight",
+          " "
+        ];
+
+        if (BLOCKED_KEYS.includes(e.key)) {
+          e.preventDefault();
+        }
   
         if (e.key === "Backspace") {
           if (cursor === 0) return
@@ -28,11 +39,15 @@ const TerminalInput = () => {
         }
   
         else if (e.key === "Enter") {
+          if (!command.trim()) return;
+          
           dispatch(setCommand(""));
           dispatch(setCursor(0));
-          dispatch(updateCommandHistory(command));
+          dispatch(updateCommandHistory({
+            id: Date.now(),
+            command}));
         }
-  
+        
         else if (e.key === "ArrowLeft") {
           dispatch(setCursor(Math.max(0, cursor - 1)))
           
@@ -79,6 +94,7 @@ const TerminalInput = () => {
 
       {/* text after cursor */}
       <span>{command.slice(cursor)}</span>
+
     </div>
   )
 }
