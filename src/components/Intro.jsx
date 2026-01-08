@@ -34,10 +34,16 @@ const Intro = () => {
           alt="Harsh Chouhan"
           className="w-32 h-32 sm:w-[30%] sm:h-auto object-contain"
         />
+        {/* Whoami Box */}
+    
+
+
+
 
         {/* Content */}
         <div className="flex flex-col gap-3 font-mono text-sm sm:text-base">
 
+        <div className="border border-green-700 rounded-md p-4 text-gray-200 font-mono">
           {/* whoami command */}
           <div className="text-green-400 font-bold">
             harshchouhan:$ <span className="underline">{whoami.displayed}</span>
@@ -46,50 +52,69 @@ const Intro = () => {
 
           {/* Intro output */}
           {whoami.done && (
-            <div className="flex flex-col gap-2 text-gray-200">
-              <p>Hey, I'm Harsh</p>
-              <p>
-                {line1.displayed}
-                {!line1.done && cursor}
-              </p>
-              {line1.done && (
-                <p>
-                  {line2.displayed}
-                  {!line2.done && cursor}
+            <>
+              <div className="mb-3">
+                <p className="text-green-400 font-bold">
+                  ── WHOAMI ──
                 </p>
-              )}
-              {line2.done && (
-                <p>
-                  {line3.displayed}
-                  {!line3.done && cursor}
+                <p className="text-lg font-semibold">
+                  Harsh Chouhan
                 </p>
-              )}
-              {line3.done && (
-                <p>
-                  {line4.displayed}
-                  {!line4.done && cursor}
+                <p className="text-sm text-gray-400">
+                  Software Engineer · Problem Solver · Fast Learner
                 </p>
-              )}
-            </div>
+              </div>
+
+              <div className="flex flex-col gap-2 text-sm sm:text-base">
+                {Array.isArray(introText) &&
+                  introText.map((line, idx) => (
+                    <p key={idx} className="leading-relaxed">
+                      {line}
+                    </p>
+                  ))
+                }
+              </div>
+            </>
           )}
 
           {/* Links */}
           {line4.done && (
-            <div className="flex flex-wrap justify-evenly gap-3 text-sm text-gray-300">
-              <a href={resumeURL} target="_blank" rel="noreferrer" className="underline hover:text-white">
-                Resume
-              </a>
-              <a href={linkedinURL} target="_blank" rel="noreferrer" className="underline hover:text-white">
-                LinkedIn
-              </a>
-              <a href={githubURL} target="_blank" rel="noreferrer" className="underline hover:text-white">
-                GitHub
-              </a>
-              <a href={gfgURL} target="_blank" rel="noreferrer" className="underline hover:text-white">
-                GFG
-              </a>
-            </div>
+          <div className="mt-4 pt-3 border-t border-green-800 flex flex-wrap gap-4 text-sm">
+            <a
+              href={resumeURL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-300 hover:text-green-400 transition"
+            >
+              [ Resume ]
+            </a>
+            <a
+              href={linkedinURL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-300 hover:text-green-400 transition"
+            >
+              [ LinkedIn ]
+            </a>
+            <a
+              href={githubURL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-300 hover:text-green-400 transition"
+            >
+              [ GitHub ]
+            </a>
+            <a
+              href={gfgURL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-gray-300 hover:text-green-400 transition"
+            >
+              [ GFG ]
+            </a>
+          </div>
           )}
+        </div>
 
           {/* stats command */}
           {line4.done && (

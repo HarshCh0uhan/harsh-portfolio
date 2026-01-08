@@ -23,10 +23,10 @@ const Terminal = ({children, title, window, changeFlex}) => {
           }} className='flex justify-between items-center rounded-xl z-20 bg-zinc-800/80
           backdrop-blur-3xl sticky top-0 border-b-2 cursor-pointer border-white/30
           px-3 py-2 md:p-2 text-sm md:text-base font-bold'>
-        <div className="text-green-400 flex items-center gap-1 shrink-0">
+        <div className="text-green-400 flex items-center gap-1 shrink-0 mx-2">
           <span className="text-sm sm:text-base md:text-lg">{">_"}</span>
         </div>
-        <div className='text-white truncate max-w-[70%] text-center'>{title}</div>
+        <div className='text-white truncate max-w-[70%] text-center mx-2'>{title}</div>
       </div>
       
       {/* Intro Component */}

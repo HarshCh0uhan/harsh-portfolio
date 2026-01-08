@@ -10,4 +10,4 @@ export const resumeURL = "https://drive.google.com/file/d/18l4OiMyqjUvHc05s226GI
 export const linkedinURL = "https://www.linkedin.com/in/harsh-chouhan-6a8035255"
 export const githubURL = "https://github.com/HarshCh0uhan"
 export const gfgURL = "https://www.geeksforgeeks.org/profile/harsh_chouhan"
-export const allCommands = ["help", "whoami", "about", "skills", "education", "experience", "projects", "contact", "clear", "history", "resume", "linkedin", "github", "gfg", "gif"]
+export const allCommands = ["help", "whoami", "about", "skills", "education", "experience", "projects", "contact", "cls", "clear", "history", "resume", "linkedin", "github", "gfg", "gif"]

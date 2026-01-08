@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCommand, setCursor, updateCommandHistory } from "../utils/terminalSlice";
+import { setCommand, setCursor, updateCommandHistory, emptyCommandHistory } from "../utils/terminalSlice";
 
 const TerminalInput = () => {
   const dispatch = useDispatch();
   const {
     currentCommand: command,
-    currentCursor: cursor,
+    currentCursor: cursor
   } = useSelector(state => state.terminal);  
 
   const bottomRef = useRef(null);
@@ -29,6 +29,10 @@ const TerminalInput = () => {
         }
         else if (e.key === "Enter") {
           if (!command.trim()) return;
+          if(command === "cls" || command === "clear") {
+            dispatch(emptyCommandHistory());
+            return;
+          }
           dispatch(setCommand(""));
           dispatch(setCursor(0));
           dispatch(updateCommandHistory({ id: Date.now(), command }));
