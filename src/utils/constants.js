@@ -10,5 +10,7 @@ export const resumeURL = "https://drive.google.com/file/d/18l4OiMyqjUvHc05s226GI
 export const linkedinURL = "https://www.linkedin.com/in/harsh-chouhan-6a8035255"
 export const githubURL = "https://github.com/HarshCh0uhan"
 export const gfgURL = "https://www.geeksforgeeks.org/profile/harsh_chouhan"
-export const allCommands = ["help", "whoami", "about", "skills", "education", "experience", "projects", "contact", "cls", "clear", "history", "resume", "linkedin", "github", "gfg", "gif"]
+export const emailURL = "https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJfrKhzWFShZtcWNnGpmhdxQtcNxKrLVpmmTQRzhWlSFPWlhtrhRKmLfLpVhpVQCBcNVTtL"
+export const allCommands = ["whoami", "skills", "projects", "cls", "clear", "history", "stats"]
+export const actionCommands = ["email", "resume", "linkedin", "github", "gfg"]
 export const BLOCKED_KEYS = ["Backspace","Delete","Enter","ArrowLeft","ArrowRight"," "];

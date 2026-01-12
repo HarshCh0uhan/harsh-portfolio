@@ -2,11 +2,35 @@ import React from 'react'
 
 const Instructions = () => {
   return (
-    <div className='text-white text-sm sm:text-md'>
-        <div>
-            <h1 className='font-bold mb-1'>Commands:</h1>
-            <p>Double Click to change Background</p>
-        </div>
+    <div className="border border-green-700 rounded-md p-3 text-gray-200 font-mono text-sm sm:text-base">
+      
+      <p className="text-green-400 font-bold mb-2">
+        ── Instructions ──
+      </p>
+
+      <div className="flex flex-col gap-1">
+        <p>
+          <span className="text-green-300">whoami</span> — About me / introduction
+        </p>
+        <p>
+          <span className="text-green-300">stats</span> — Developer stats & progress
+        </p>
+        <p>
+          <span className="text-green-300">skills</span> — Technical skill matrix
+        </p>
+        <p>
+          <span className="text-green-300">projects</span> — Projects with live links
+        </p>
+        <p>
+          <span className="text-green-300">clear</span> — Clear terminal output
+        </p>
+      </div>
+
+      <div className="mt-3 pt-2 border-t border-green-800 text-gray-400">
+        <p>• Press <span className="text-green-300">Enter</span> to execute command</p>
+        <p>• Double-click background to change theme</p>
+      </div>
+
     </div>
   )
 }

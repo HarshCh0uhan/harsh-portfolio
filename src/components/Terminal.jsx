@@ -13,7 +13,7 @@ const Terminal = ({children, title, window, changeFlex}) => {
     <div className={`bg-black/70 rounded-xl border border-white/30
      shadow-gray-400 shadow-2xs backdrop-blur-md font-mono
      transition-all duration-300 ease-in-out overflow-auto no-scrollbar
-     ${minimize ? 'w-full md:w-[25%] xl:w-[15%] h-[5%]' 
+     ${minimize ? 'w-full md:w-[25%] xl:w-[15%] h-[7%] xl:h-[5%]' 
     : `w-full h-[85vh] md:h-[90%] ${changeFlex}`}`}>
       
       {/* Terminal Header */}

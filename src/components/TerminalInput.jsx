@@ -1,66 +1,101 @@
 import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCommand, setCursor, updateCommandHistory, emptyCommandHistory } from "../utils/terminalSlice";
+import {
+  setCommand,
+  setCursor,
+  updateCommandHistory,
+  emptyCommandHistory,
+} from "../utils/terminalSlice";
 import { BLOCKED_KEYS } from "../utils/constants";
+import {
+  resumeURL,
+  linkedinURL,
+  githubURL,
+  gfgURL,
+  emailURL,
+  actionCommands,
+} from "../utils/constants";
 
 const TerminalInput = () => {
   const dispatch = useDispatch();
-  const {
-    currentCommand: command,
-    currentCursor: cursor
-  } = useSelector(state => state.terminal);  
+  const { currentCommand: command, currentCursor: cursor } = useSelector(
+    (state) => state.terminal
+  );
 
   const bottomRef = useRef(null);
 
+  const actionCommand = (cmd) => {
+    if (cmd === "email") window.open(emailURL, "_blank");
+    else if (cmd === "resume") window.open(resumeURL, "_blank");
+    else if (cmd === "linkedin") window.open(linkedinURL, "_blank");
+    else if (cmd === "github") window.open(githubURL, "_blank");
+    else if (cmd === "gfg") window.open(gfgURL, "_blank");
+  };
+
   useEffect(() => {
-      const handleKeyDown = (e) => {
-        if (e.ctrlKey || e.metaKey || e.altKey) return;
-        if (BLOCKED_KEYS.includes(e.key)) e.preventDefault();
-  
-        if (e.key === "Backspace") {
-          if (cursor === 0) return;
-          dispatch(setCommand(command.slice(0, cursor - 1) + command.slice(cursor)));
-          dispatch(setCursor(cursor - 1));
-        }
-        else if (e.key === "Delete") {
-          if (cursor === command.length) return;
-          dispatch(setCommand(command.slice(0, cursor) + command.slice(cursor + 1)));
-        }
-        else if (e.key === "Enter") {
-          if (!command.trim()) return;
-          if(command === "cls" || command === "clear") {
-            dispatch(emptyCommandHistory());
-            return;
-          }
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (BLOCKED_KEYS.includes(e.key)) e.preventDefault();
+
+      if (e.key === "Backspace") {
+        if (cursor === 0) return;
+        dispatch(
+          setCommand(command.slice(0, cursor - 1) + command.slice(cursor))
+        );
+        dispatch(setCursor(cursor - 1));
+      } 
+      else if (e.key === "Delete") {
+        if (cursor === command.length) return;
+        dispatch(
+          setCommand(command.slice(0, cursor) + command.slice(cursor + 1))
+        );
+      } 
+      else if (e.key === "Enter") {
+        if (!command.trim()) return;
+
+        const normalized = command.trim().toLowerCase();
+
+        if (normalized === "cls" || normalized === "clear") {
+          dispatch(emptyCommandHistory());
           dispatch(setCommand(""));
           dispatch(setCursor(0));
-          dispatch(updateCommandHistory({ id: Date.now(), command }));
+          return;
         }
-        else if (e.key === "ArrowLeft") {
-          dispatch(setCursor(Math.max(0, cursor - 1)));
+
+        if (actionCommands.includes(normalized)) {
+          actionCommand(normalized);
         }
-        else if (e.key === "ArrowRight") {
-          dispatch(setCursor(Math.min(command.length, cursor + 1)));
-        }
-        else if (e.key === " ") {
-          dispatch(setCommand(command.slice(0, cursor) + " " + command.slice(cursor)));
-          dispatch(setCursor(cursor + 1));
-        }
-        else if (e.key.length === 1) {
-          dispatch(setCommand(command.slice(0, cursor) + e.key + command.slice(cursor)));
-          dispatch(setCursor(cursor + 1));
-        }
-      };
-  
-      window.addEventListener("keydown", handleKeyDown);
-      return () => window.removeEventListener("keydown", handleKeyDown);
+
+        dispatch(updateCommandHistory({ id: Date.now(), command }));
+        dispatch(setCommand(""));
+        dispatch(setCursor(0));
+      } 
+      else if (e.key === "ArrowLeft") {
+        dispatch(setCursor(Math.max(0, cursor - 1)));
+      } 
+      else if (e.key === "ArrowRight") {
+        dispatch(setCursor(Math.min(command.length, cursor + 1)));
+      } 
+      else if (e.key === " ") {
+        dispatch(
+          setCommand(command.slice(0, cursor) + " " + command.slice(cursor))
+        );
+        dispatch(setCursor(cursor + 1));
+      } 
+      else if (e.key.length === 1) {
+        dispatch(
+          setCommand(command.slice(0, cursor) + e.key + command.slice(cursor))
+        );
+        dispatch(setCursor(cursor + 1));
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [command, cursor, dispatch]);
 
-  // Scroll to bottom whenever command changes
   useEffect(() => {
-    if (bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [command]);
 
   return (
@@ -69,7 +104,11 @@ const TerminalInput = () => {
         <span className="font-bold">harshchouhan:$</span>
         <span>
           {command.slice(0, cursor).split("").map((ch, i) =>
-            ch === " " ? <span key={i} className="terminal-space"></span> : <span key={i}>{ch}</span>
+            ch === " " ? (
+              <span key={i} className="terminal-space"></span>
+            ) : (
+              <span key={i}>{ch}</span>
+            )
           )}
         </span>
         <span className="terminal-cursor"></span>

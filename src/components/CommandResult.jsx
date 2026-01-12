@@ -3,20 +3,30 @@ import Whoami from './Whoami';
 import Stats from './Stats';
 import SkillMatrix from './SkillMatrix';
 import Projects from './Projects';
+import CommandHistory from './CommandHistory';
+import { actionCommands } from '../utils/constants';
 
 const CommandResult = ({ command }) => {
+  const normalized = command.trim().toLowerCase();
   return (
     <div className='flex overflow-x-auto mt-1 mb-4'>
-        {(command === "whoami") ? (
+        {(normalized === "whoami") ? (
             <Whoami />
-        ) : (command === "stats") ? (
+        ) : (normalized === "stats") ? (
             <Stats />
-        ) : (command === "skills") ? (
+        ) : (normalized === "skills") ? (
             <SkillMatrix />
-        ) : (command === "projects") ? (
+        ) : (normalized === "projects") ? (
             <Projects />
+        ) : (normalized === "history") ? (
+            <CommandHistory />
+        ) : (actionCommands.includes()) ? (
+            <div>
+                <p className="text-gray-200">Opening {normalized}...</p>
+                <p>Command Executed</p>
+            </div>
         ) : (
-            <p className="text-gray-200">Command not found: {command}</p>
+            <p className="text-gray-200">Command not found: {normalized}</p>
         )}
     </div>
   )
