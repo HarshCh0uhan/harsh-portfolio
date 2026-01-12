@@ -6,7 +6,6 @@ import {
   updateCommandHistory,
   emptyCommandHistory,
 } from "../utils/terminalSlice";
-import { BLOCKED_KEYS } from "../utils/constants";
 import {
   resumeURL,
   linkedinURL,
@@ -35,7 +34,6 @@ const TerminalInput = () => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
-      if (BLOCKED_KEYS.includes(e.key)) e.preventDefault();
 
       if (e.key === "Backspace") {
         if (cursor === 0) return;
@@ -66,7 +64,7 @@ const TerminalInput = () => {
           actionCommand(normalized);
         }
 
-        dispatch(updateCommandHistory({ id: Date.now(), command }));
+        dispatch(updateCommandHistory({ id: Date.now(), command:normalized }));
         dispatch(setCommand(""));
         dispatch(setCursor(0));
       } 

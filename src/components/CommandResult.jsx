@@ -20,10 +20,10 @@ const CommandResult = ({ command }) => {
             <Projects />
         ) : (normalized === "history") ? (
             <CommandHistory />
-        ) : (actionCommands.includes()) ? (
-            <div>
-                <p className="text-gray-200">Opening {normalized}...</p>
-                <p>Command Executed</p>
+        ) : (actionCommands.includes(normalized)) ? (
+            <div className="text-gray-200">
+                <p>Opening {normalized}...</p>
+                <p className="text-green-400">Command executed.</p>
             </div>
         ) : (
             <p className="text-gray-200">Command not found: {normalized}</p>
