@@ -10,9 +10,13 @@
   }
 }
 
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
+@keyframes cursorBlink {
+  0%, 50% {
+    opacity: 1;
+  }
+  50.01%, 100% {
+    opacity: 0;
+  }
 }
 
 .blink {
@@ -22,19 +26,12 @@
 .terminal-cursor {
   display: inline-block;
   width: 8px;
-  height: 1.2em;
+  height: 1em;              /* EXACT text height */
   background-color: #22c55e;
-  vertical-align: bottom;
-  animation: blink 1s steps(1) infinite;
+  vertical-align: baseline; /* 🔑 IMPORTANT */
+  animation: cursorBlink 1s steps(1) infinite;
 }
 
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
-}
-
-/* space visualization */
 .terminal-space {
   display: inline-block;
   width: 0.5em;
@@ -124,5 +121,5 @@
   opacity: 0.8;
   pointer-events: none;
   z-index: 15;
-  animation: staticShift 0.1s steps(1) infinite;
+  animation: staticShift 0.25s steps(1) infinite;
 }
