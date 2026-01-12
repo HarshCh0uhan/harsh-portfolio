@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const Instructions = () => {
   return (
@@ -22,7 +22,25 @@ const Instructions = () => {
           <span className="text-green-300">projects</span> — Projects with live links
         </p>
         <p>
-          <span className="text-green-300">clear</span> — Clear terminal output
+          <span className="text-green-300">history</span> — View command history
+        </p>
+        <p>
+          <span className="text-green-300">clear / cls</span> — Clear terminal output
+        </p>
+        <p>
+          <span className="text-green-300">resume</span> — Open my resume in new tab
+        </p>
+        <p>
+          <span className="text-green-300">linkedin</span> — Open LinkedIn profile
+        </p>
+        <p>
+          <span className="text-green-300">github</span> — Open GitHub profile
+        </p>
+        <p>
+          <span className="text-green-300">gfg</span> — Open GeeksforGeeks profile
+        </p>
+        <p>
+          <span className="text-green-300">email</span> — Open default email client
         </p>
       </div>
 
@@ -32,7 +50,7 @@ const Instructions = () => {
       </div>
 
     </div>
-  )
-}
+  );
+};
 
-export default Instructions
+export default Instructions;
