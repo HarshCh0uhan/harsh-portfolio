@@ -18,7 +18,7 @@ import CommandHistory from "./CommandHistory";
 
 const TerminalInput = () => {
   const dispatch = useDispatch();
-  const { currentCommand: command, currentCursor: cursor } = useSelector(
+  const { currentCommand: command, currentCursor: cursor, commandHistory } = useSelector(
     (state) => state.terminal
   );
 
@@ -94,8 +94,8 @@ const TerminalInput = () => {
   }, [command, cursor, dispatch]);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView();
-  }, [CommandHistory.length]);
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [commandHistory.length]);
 
   return (
     <>
