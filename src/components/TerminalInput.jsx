@@ -24,6 +24,10 @@ const TerminalInput = () => {
 
   const bottomRef = useRef(null);
 
+  const handleChange = (e) => {
+    dispatch(setCommand(e.target.value));
+  };
+
   const actionCommand = (cmd) => {
     if (cmd === "email") window.open(emailURL, "_blank");
     else if (cmd === "resume") window.open(resumeURL, "_blank");
@@ -111,6 +115,7 @@ const TerminalInput = () => {
           )}
         </span>
         <span className="terminal-cursor"></span>
+        <input type="text" className="opacity-0" />
         <span>{command.slice(cursor)}</span>
       </div>
 
