@@ -115,7 +115,7 @@ const TerminalInput = () => {
           )}
         </span>
         <span className="terminal-cursor"></span>
-        <input type="text" className="opacity-0" />
+        <input value={command} onChange={handleChange} type="text" className="opacity-0" />
         <span>{command.slice(cursor)}</span>
       </div>
 
