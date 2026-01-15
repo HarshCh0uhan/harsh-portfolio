@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setCommand,
@@ -23,11 +23,8 @@ const TerminalInput = () => {
   );
 
   const bottomRef = useRef(null);
-
-  const handleChange = (e) => {
-    dispatch(setCommand(e.target.value));
-  };
-
+  const inputRef = useRef(null);
+  
   const actionCommand = (cmd) => {
     if (cmd === "email") window.open(emailURL, "_blank");
     else if (cmd === "resume") window.open(resumeURL, "_blank");
@@ -39,7 +36,7 @@ const TerminalInput = () => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return;
-
+      
       if (e.key === "Backspace") {
         if (cursor === 0) return;
         dispatch(
@@ -103,7 +100,7 @@ const TerminalInput = () => {
 
   return (
     <>
-      <div className="flex items-center gap-1 mt-4 text-green-400 font-mono leading-none">
+      <div onTouchStart={() => inputRef.current?.focus()} className="flex items-center gap-1 mt-4 text-green-400 font-mono leading-none">
         <span className="font-bold">harshchouhan:$</span>
         <span>
           {command.slice(0, cursor).split("").map((ch, i) =>
@@ -115,8 +112,8 @@ const TerminalInput = () => {
           )}
         </span>
         <span className="terminal-cursor"></span>
-        <input value={command} onChange={handleChange} type="text" className="opacity-0" />
         <span>{command.slice(cursor)}</span>
+        <input ref={inputRef} tabIndex={-1} className="absolute opacity-0" inputMode="text" />
       </div>
 
       <div ref={bottomRef} />
