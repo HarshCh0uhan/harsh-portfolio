@@ -22,10 +22,9 @@ const TerminalInput = () => {
     (state) => state.terminal
   );
 
-  const bottomRef = useRef(null);
   const inputRef = useRef(null);
-  console.log(inputRef);
-  
+  const bottomRef = useRef(null);
+  const terminalRef = useRef(null);
   
   const actionCommand = (cmd) => {
     if (cmd === "email") window.open(emailURL, "_blank");
@@ -34,81 +33,118 @@ const TerminalInput = () => {
     else if (cmd === "github") window.open(githubURL, "_blank");
     else if (cmd === "gfg") window.open(gfgURL, "_blank");
   };
+  
+  const executeCommand = (cmd) => {
+    if (!cmd.trim()) return;
 
+    const normalized = cmd.trim().toLowerCase();
+
+    if (normalized === "cls" || normalized === "clear") {
+      dispatch(emptyCommandHistory());
+      dispatch(setCommand(""));
+      dispatch(setCursor(0));
+      return;
+    }
+
+    if (actionCommands.includes(normalized)) {
+      actionCommand(normalized);
+    }
+  
+    dispatch(updateCommandHistory({ id: Date.now(), command: normalized }));
+    dispatch(setCommand(""));
+    dispatch(setCursor(0));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    executeCommand(command);
+  };
+
+  // Handle special keys only (arrows, enter, etc.)
+  const handleKeyDown = (e) => {
+    // Let input handle regular character input naturally
+    if (e.key === "Enter") {
+      e.preventDefault();
+      executeCommand(command);
+    } 
+    else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      const newCursor = Math.max(0, cursor - 1);
+      dispatch(setCursor(newCursor));
+      // Update input selection
+      setTimeout(() => {
+        inputRef.current?.setSelectionRange(newCursor, newCursor);
+      }, 0);
+    } 
+    else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      const newCursor = Math.min(command.length, cursor + 1);
+      dispatch(setCursor(newCursor));
+      // Update input selection
+      setTimeout(() => {
+        inputRef.current?.setSelectionRange(newCursor, newCursor);
+      }, 0);
+    }
+    else if (e.key === "Home") {
+      e.preventDefault();
+      dispatch(setCursor(0));
+      setTimeout(() => {
+        inputRef.current?.setSelectionRange(0, 0);
+      }, 0);
+    }
+    else if (e.key === "End") {
+      e.preventDefault();
+      dispatch(setCursor(command.length));
+      setTimeout(() => {
+        inputRef.current?.setSelectionRange(command.length, command.length);
+      }, 0);
+    }
+  };
+
+  // Sync input cursor position with our visual cursor
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+    const selectionStart = e.target.selectionStart;
+    
+    dispatch(setCommand(newValue));
+    dispatch(setCursor(selectionStart));
+  };
+
+  // Sync cursor when user clicks in the input
+  const handleInputClick = (e) => {
+    const selectionStart = e.target.selectionStart;
+    dispatch(setCursor(selectionStart));
+  };
+
+  // Focus input when terminal is clicked
+  const handleTerminalClick = () => {
+    inputRef.current?.focus();
+  };
+
+  // Auto-focus input on mount
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.ctrlKey || e.metaKey || e.altKey) return;
-      
-      if (e.key === "Backspace") {
-        if (cursor === 0) return;
-        dispatch(
-          setCommand(command.slice(0, cursor - 1) + command.slice(cursor))
-        );
-        dispatch(setCursor(cursor - 1));
-      } 
-      else if (e.key === "Delete") {
-        if (cursor === command.length) return;
-        dispatch(
-          setCommand(command.slice(0, cursor) + command.slice(cursor + 1))
-        );
-      } 
-      else if (e.key === "Enter") {
-        if (!command.trim()) return;
+    inputRef.current?.focus();
+  }, []);
 
-        const normalized = command.trim().toLowerCase();
+  // Keep input cursor in sync with our cursor state
+  useEffect(() => {
+    if (inputRef.current && document.activeElement === inputRef.current) {
+      inputRef.current.setSelectionRange(cursor, cursor);
+    }
+  }, [cursor, command]);
 
-        if (normalized === "cls" || normalized === "clear") {
-          dispatch(emptyCommandHistory());
-          dispatch(setCommand(""));
-          dispatch(setCursor(0));
-          return;
-        }
-
-        if (actionCommands.includes(normalized)) {
-          actionCommand(normalized);
-        }
-
-        dispatch(updateCommandHistory({ id: Date.now(), command:normalized }));
-        dispatch(setCommand(""));
-        dispatch(setCursor(0));
-      } 
-      else if (e.key === "ArrowLeft") {
-        dispatch(setCursor(Math.max(0, cursor - 1)));
-      } 
-      else if (e.key === "ArrowRight") {
-        dispatch(setCursor(Math.min(command.length, cursor + 1)));
-      } 
-      else if (e.key === " ") {
-        dispatch(
-          setCommand(command.slice(0, cursor) + " " + command.slice(cursor))
-        );
-        dispatch(setCursor(cursor + 1));
-      } 
-      else if (e.key.length === 1) {
-        dispatch(
-          setCommand(command.slice(0, cursor) + e.key + command.slice(cursor))
-        );
-        dispatch(setCursor(cursor + 1));
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [command, cursor, dispatch]);
-
+  // Auto-scroll to bottom when command history updates
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [commandHistory.length]);
 
-  useEffect(() => {
-    if(inputRef.current){
-      inputRef.current.focus();
-    }
-  }, []);
-
   return (
     <>
-      <div  className="flex items-center gap-1 mt-4 text-green-400 font-mono leading-none">
+      <div 
+        ref={terminalRef}
+        onClick={handleTerminalClick}
+        className="flex items-center gap-1 mt-4 text-green-400 font-mono leading-none cursor-text"
+      >
         <span className="font-bold">harshchouhan:$</span>
         <span>
           {command.slice(0, cursor).split("").map((ch, i) =>
@@ -121,7 +157,24 @@ const TerminalInput = () => {
         </span>
         <span className="terminal-cursor"></span>
         <span>{command.slice(cursor)}</span>
-        <input ref={inputRef} tabIndex={-1} className="absolute opacity-0" inputMode="text" />
+        
+        {/* Hidden but functional input for keyboard capture */}
+        <form onSubmit={handleSubmit} className="absolute">
+          <input 
+            ref={inputRef}
+            value={command}
+            onChange={handleInputChange}
+            onClick={handleInputClick}
+            onKeyDown={handleKeyDown}
+            type="text"
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck="false"
+            className="opacity-0 pointer-events-auto w-px h-px absolute"
+            style={{ caretColor: 'transparent' }}
+          />
+        </form>
       </div>
 
       <div ref={bottomRef} />
