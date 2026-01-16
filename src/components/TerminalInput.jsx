@@ -24,6 +24,8 @@ const TerminalInput = () => {
 
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
+  console.log(inputRef);
+  
   
   const actionCommand = (cmd) => {
     if (cmd === "email") window.open(emailURL, "_blank");
@@ -98,9 +100,15 @@ const TerminalInput = () => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [commandHistory.length]);
 
+  useEffect(() => {
+    if(inputRef.current){
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <>
-      <div onTouchStart={() => inputRef.current?.focus()} className="flex items-center gap-1 mt-4 text-green-400 font-mono leading-none">
+      <div  className="flex items-center gap-1 mt-4 text-green-400 font-mono leading-none">
         <span className="font-bold">harshchouhan:$</span>
         <span>
           {command.slice(0, cursor).split("").map((ch, i) =>
