@@ -80,12 +80,12 @@ const TerminalInput = () => {
     else if (e.key === "Home") {
       e.preventDefault();
       dispatch(setCursor(0));
-      inputRef.current?.setSelectionRange(0, 0);  // ← No setTimeout needed!
+      inputRef.current?.setSelectionRange(0, 0);
     }
     else if (e.key === "End") {
       e.preventDefault();
       dispatch(setCursor(command.length));
-      inputRef.current?.setSelectionRange(command.length, command.length);  // ← No setTimeout needed!
+      inputRef.current?.setSelectionRange(command.length, command.length);
     }
   };
 
