@@ -14,7 +14,6 @@ import {
   emailURL,
   actionCommands,
 } from "../utils/constants";
-import CommandHistory from "./CommandHistory";
 
 const TerminalInput = () => {
   const dispatch = useDispatch();
@@ -23,7 +22,14 @@ const TerminalInput = () => {
   );
 
   const inputRef = useRef(null);
-  const bottomRef = useRef(null);
+  const bottomRef = useRef(null);  
+  const [historyIndex, setHistoryIndex] = useState(commandHistory.length);
+
+  useEffect(() => {
+    setHistoryIndex(commandHistory.length);
+  }, [commandHistory.length]);
+  // console.log(historyIndex);
+  
   
   const actionCommand = (cmd) => {
     if (cmd === "email") window.open(emailURL, "_blank");
@@ -37,6 +43,7 @@ const TerminalInput = () => {
     if (!cmd.trim()) return;
 
     const normalized = cmd.trim().toLowerCase();
+    
 
     if (normalized === "cls" || normalized === "clear") {
       dispatch(emptyCommandHistory());
@@ -65,6 +72,31 @@ const TerminalInput = () => {
       e.preventDefault();
       executeCommand(command);
     } 
+    else if(e.key === "ArrowUp" || e.key === "ArrowDown"){
+      e.preventDefault();
+      const index = historyIndex;
+      if(commandHistory.length && e.key === "ArrowUp") {
+        if(index > 0 && index <= commandHistory.length){
+          dispatch(setCommand(commandHistory[index-1].command));
+          setHistoryIndex(index - 1);
+          dispatch(setCursor(commandHistory[index-1].command.length));
+        }
+      }
+      else if(commandHistory.length && e.key === "ArrowDown") {
+        if(index === commandHistory.length - 1){
+          dispatch(setCommand(""));
+          setHistoryIndex(index + 1);
+          dispatch(setCursor(0));
+        }
+
+        else if(index >= 0 && index < commandHistory.length-1){
+          dispatch(setCommand(commandHistory[index+1].command));
+          setHistoryIndex(index + 1);
+          dispatch(setCursor(commandHistory[index+1].command.length));
+          
+        }
+      }
+    }
     else if (e.key === "ArrowLeft") {
       e.preventDefault();
       const newCursor = Math.max(0, cursor - 1);

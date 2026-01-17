@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 
 const CommandHistory = () => {
-    const { commandHistory } = useSelector((state) => state.terminal);
+  const { commandHistory } = useSelector((state) => state.terminal);
   return (
     <div className="text-gray-200">
       <p className="font-bold mb-2">Command History:</p>
