@@ -25,12 +25,37 @@ const TerminalInput = () => {
   const bottomRef = useRef(null);  
   const [historyIndex, setHistoryIndex] = useState(commandHistory.length);
 
+  // Auto-focus input on mount
   useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  // Keep input cursor in sync with our cursor state
+  useEffect(() => {
+    if (inputRef.current && document.activeElement === inputRef.current) {
+      inputRef.current.setSelectionRange(cursor, cursor);
+    }
+  }, [cursor, command]);
+
+  // Auto-scroll to bottom when command history updates
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     setHistoryIndex(commandHistory.length);
-  }, [commandHistory.length]);
-  // console.log(historyIndex);
+  }, [commandHistory.length]);  
   
-  
+  // Sync input cursor position with our visual cursor
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+    const selectionStart = e.target.selectionStart;    
+    dispatch(setCommand(newValue));
+    dispatch(setCursor(selectionStart));
+  };
+
+  // Focus input when terminal is clicked
+  const handleTerminalClick = () => {
+    inputRef.current?.focus();
+  };
+
   const actionCommand = (cmd) => {
     if (cmd === "email") window.open(emailURL, "_blank");
     else if (cmd === "resume") window.open(resumeURL, "_blank");
@@ -120,36 +145,6 @@ const TerminalInput = () => {
       inputRef.current?.setSelectionRange(command.length, command.length);
     }
   };
-
-  // Sync input cursor position with our visual cursor
-  const handleInputChange = (e) => {
-    const newValue = e.target.value;
-    const selectionStart = e.target.selectionStart;    
-    dispatch(setCommand(newValue));
-    dispatch(setCursor(selectionStart));
-  };
-
-  // Focus input when terminal is clicked
-  const handleTerminalClick = () => {
-    inputRef.current?.focus();
-  };
-
-  // Auto-focus input on mount
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
-  // Keep input cursor in sync with our cursor state
-  useEffect(() => {
-    if (inputRef.current && document.activeElement === inputRef.current) {
-      inputRef.current.setSelectionRange(cursor, cursor);
-    }
-  }, [cursor, command]);
-
-  // Auto-scroll to bottom when command history updates
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [commandHistory.length]);
 
   return (
     <div 
