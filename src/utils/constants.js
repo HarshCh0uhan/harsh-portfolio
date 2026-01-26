@@ -13,3 +13,4 @@ export const gfgURL = "https://www.geeksforgeeks.org/profile/harsh_chouhan"
 export const emailURL = "https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJfrKhzWFShZtcWNnGpmhdxQtcNxKrLVpmmTQRzhWlSFPWlhtrhRKmLfLpVhpVQCBcNVTtL"
 export const allCommands = ["whoami", "skills", "projects", "cls", "clear", "history", "stats"]
 export const actionCommands = ["email", "resume", "linkedin", "github", "gfg"]
+export const suggetions = ["whoami", "skills", "projects", "cls", "clear", "history", "stats", "email", "resume", "linkedin", "github", "gfg"]

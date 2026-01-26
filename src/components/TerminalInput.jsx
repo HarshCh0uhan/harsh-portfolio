@@ -13,6 +13,7 @@ import {
   gfgURL,
   emailURL,
   actionCommands,
+  suggetions
 } from "../utils/constants";
 
 const TerminalInput = () => {
@@ -134,6 +135,15 @@ const TerminalInput = () => {
       dispatch(setCursor(newCursor));
       inputRef.current?.setSelectionRange(newCursor, newCursor);
     }
+    else if(e.key === "Tab") {
+      e.preventDefault();
+      const suggetion = suggetions.filter(cmd => cmd.startsWith(command))[0];
+      // console.log(suggetion);
+      if(suggetion){
+        dispatch(setCommand(suggetion));
+        dispatch(setCursor(suggetion.length));
+      }
+    }
     else if (e.key === "Home") {
       e.preventDefault();
       dispatch(setCursor(0));
@@ -160,7 +170,16 @@ const TerminalInput = () => {
             <span key={i}>{ch}</span>
           )
         )}
+        
+        {/* Suggetions */}
+        {command && (
+          <span className="text-green-400/70">
+            {suggetions.filter(cmd => cmd.startsWith(command))[0]?.slice(command.length)}
+          </span>
+        )}
       </span>
+
+
       <span ref={bottomRef} className="terminal-cursor"></span>
       <span>{command.slice(cursor)}</span>
       
