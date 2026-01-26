@@ -46,7 +46,7 @@ const TerminalInput = () => {
   
   // Sync input cursor position with our visual cursor
   const handleInputChange = (e) => {
-    const newValue = e.target.value;
+    const newValue = e.target.value.trim().toLowerCase();
     const selectionStart = e.target.selectionStart;    
     dispatch(setCommand(newValue));
     dispatch(setCursor(selectionStart));
@@ -66,23 +66,20 @@ const TerminalInput = () => {
   };
   
   const executeCommand = (cmd) => {
-    if (!cmd.trim()) return;
+    if (!cmd.trim()) return;    
 
-    const normalized = cmd.trim().toLowerCase();
-    
-
-    if (normalized === "cls" || normalized === "clear") {
+    if (cmd === "cls" || cmd === "clear") {
       dispatch(emptyCommandHistory());
       dispatch(setCommand(""));
       dispatch(setCursor(0));
       return;
     }
 
-    if (actionCommands.includes(normalized)) {
-      actionCommand(normalized);
+    if (actionCommands.includes(cmd)) {
+      actionCommand(cmd);
     }
-  
-    dispatch(updateCommandHistory({ id: Date.now(), command: normalized }));
+
+    dispatch(updateCommandHistory({ id: Date.now(), command: cmd }));
     dispatch(setCommand(""));
     dispatch(setCursor(0));
   };
