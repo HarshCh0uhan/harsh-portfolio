@@ -6,7 +6,7 @@ export const introText = ["-> I'm a highly motivated learner with a strong probl
                         "-> Seeking opportunities to contribute and grow in dynamic teams."]
 export const gifURL = "https://www.lofi.cafe/gifs/"
 export const gifExtension = ".gif"
-export const resumeURL = "https://drive.google.com/file/d/18l4OiMyqjUvHc05s226GI3Irjio1maQP/view?usp=drive_link"
+export const resumeURL = "https://drive.google.com/file/d/1fGZXyFRQ2hJQPGjp5mX-MeFqXNwoAdlY/view?usp=sharing"
 export const linkedinURL = "https://www.linkedin.com/in/harsh-chouhan-6a8035255"
 export const githubURL = "https://github.com/HarshCh0uhan"
 export const gfgURL = "https://www.geeksforgeeks.org/profile/harsh_chouhan"
